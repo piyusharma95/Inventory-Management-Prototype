@@ -1,6 +1,8 @@
+from datetime import timedelta
+
 from django.db import models
 from django.utils import timezone
-import datetime
+
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
@@ -13,7 +15,8 @@ class Product(models.Model):
     
     def sales_last_90_days(self):
         ninety_days_ago = timezone.now().date() - timedelta(days=90)
-        return self.sales.filter(sale_date__gte=ninety_days_ago).aggregate(total=Sum('quantity'))['total'] or 0
+        return self.sales.filter(sale_date__gte=ninety_days_ago).aggregate(total=models.Sum('quantity'))['total'] or 0
+
 
 class Sale(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='sales')

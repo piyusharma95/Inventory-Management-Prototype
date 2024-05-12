@@ -1,6 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.conf import settings
+
 from .models import Product
 from .serializers import ProductSerializer, InventoryMetricsSerializer
 
