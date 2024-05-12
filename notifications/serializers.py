@@ -1,6 +1,14 @@
 from rest_framework import serializers
 
-class ProductInventorySerializer(serializers.Serializer):
+from .models import Product
+
+
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['id', 'name']
+
+class InventoryMetricsSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=100)
     total_sales_last_90_days = serializers.IntegerField()
     current_stock = serializers.IntegerField()
